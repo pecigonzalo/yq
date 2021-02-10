@@ -47,11 +47,28 @@ var assignOperatorScenarios = []expressionScenario{
 		},
 	},
 	{
-		description: "Update string value",
-		document:    `{a: {b: apple}}`,
-		expression:  `.a.b = "frog"`,
+		description:    "Update string value",
+		subdescription: "Note that anchors are maintained",
+		document:       `{a: {b: &variable apple}}`,
+		expression:     `.a.b = "frog"`,
 		expected: []string{
-			"D0, P[], (doc)::{a: {b: frog}}\n",
+			"D0, P[], (doc)::{a: {b: &variable frog}}\n",
+		},
+	},
+	{
+		skipDoc:    true,
+		document:   `{a: {a2: &cats go, b: *cats}}`,
+		expression: `.a.b = "frog"`,
+		expected: []string{
+			"D0, P[], (doc)::{a: {a2: &cats go, b: frog}}\n",
+		},
+	},
+	{
+		skipDoc:    true,
+		document:   `{a: {b: apple}}`,
+		expression: `.a.b = {"great": "huh"}`,
+		expected: []string{
+			"D0, P[], (doc)::{a: {b: {great: huh}}}\n",
 		},
 	},
 	{

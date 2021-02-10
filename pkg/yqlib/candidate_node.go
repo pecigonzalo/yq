@@ -79,7 +79,10 @@ func (n *CandidateNode) UpdateAttributesFrom(other *CandidateNode) {
 	n.Node.Kind = other.Node.Kind
 	n.Node.Tag = other.Node.Tag
 	n.Node.Alias = other.Node.Alias
-	n.Node.Anchor = other.Node.Anchor
+
+	if other.Node.Anchor != "" {
+		n.Node.Anchor = other.Node.Anchor
+	}
 
 	// merge will pickup the style of the new thing
 	// when autocreating nodes

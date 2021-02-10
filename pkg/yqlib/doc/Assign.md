@@ -91,10 +91,12 @@ c: potatoe
 ```
 
 ## Update string value
+Note that anchors are maintained
+
 Given a sample.yml file of:
 ```yaml
 a:
-  b: apple
+  b: &variable apple
 ```
 then
 ```bash
@@ -103,7 +105,7 @@ yq eval '.a.b = "frog"' sample.yml
 will output
 ```yaml
 a:
-  b: frog
+  b: &variable frog
 ```
 
 ## Update string value via |=
